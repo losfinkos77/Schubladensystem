@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Schubladen-System mit Speicher</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    .drawer {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .drawer-header {
+      padding: 15px;
+      cursor: pointer;
+      background-color: #e0e0e0;
+      border-radius: 10px 10px 0 0;
+    }
+    .drawer-content {
+      display: none;
+      padding: 15px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📦 Schubladen-System</h1>
+
+  <div class="drawer" data-id="1">
+    <div class="drawer-header">Schublade 1</div>
+    <div class="drawer-content">
+      <textarea placeholder="Schreib hier was rein..."></textarea>
+    </div>
+  </div>
+
+  <div class="drawer" data-id="2">
+    <div class="drawer-header">Schublade 2</div>
+    <div class="drawer-content">
+      <textarea placeholder="Schreib hier was rein..."></textarea>
+    </div>
+  </div>
+
+  <div class="drawer" data-id="3">
+    <div class="drawer-header">Schublade 3</div>
+    <div class="drawer-content">
+      <textarea placeholder="Schreib hier was rein..."></textarea>
+    </div>
+  </div>
+
+  <div class="drawer" data-id="4">
+    <div class="drawer-header">Schublade 4</div>
+    <div class="drawer-content">
+      <textarea placeholder="Schreib hier was rein..."></textarea>
+    </div>
+  </div>
+
+  <div class="drawer" data-id="5">
+    <div class="drawer-header">Schublade 5</div>
+    <div class="drawer-content">
+      <textarea placeholder="Schreib hier was rein..."></textarea>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.drawer-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const content = header.nextElementSibling;
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+
+    // Speichern + Laden
+    document.querySelectorAll('.drawer').forEach(drawer => {
+      const id = drawer.getAttribute('data-id');
+      const textarea = drawer.querySelector('textarea');
+
+      // Lade gespeicherten Inhalt
+      const savedText = localStorage.getItem(`drawer-${id}`);
+      if (savedText) {
+        textarea.value = savedText;
+      }
+
+      // Speichern bei Eingabe
+      textarea.addEventListener('input', () => {
+        localStorage.setItem(`drawer-${id}`, textarea.value);
+      });
+    });
+  </script>
+
+</body>
+</html>
